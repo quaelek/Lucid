@@ -19,7 +19,7 @@ $(document).ready(function () {
         element.append(text[index++]);
         setTimeout(function () {
           slowWriteText(element, text, index);
-        }, 20);
+        }, 35);
       }
     }
   
