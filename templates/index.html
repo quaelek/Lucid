@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Playball&display=swap');
-        </style>        
+    </style>
 </head>
 
 <body>
@@ -28,104 +28,84 @@
         </form>
         <hr>
         <div class="conversation">
-    </div>
-    <div class="esoteric-loader">
-        <div class="circle">
-            <div class="moon"></div>
-            <div class="star"></div>
         </div>
-    </div>
-    <script>
+        <div class="esoteric-loader">
+            <div class="circle">
+                <div class="moon"></div>
+                <div class="star"></div>
+            </div>
+        </div>
+        <script>
 
-        $(document).ready(function () {
-            function showThinkingAnimation() {
-                $(".thinking-animation").fadeIn(1000, function () {
-                    $(".thinking-animation").fadeOut(1000);
-                });
-            }
-
-            function showEsotericLoader() {
-                $(".esoteric-loader").fadeIn(1000);
-            }
-
-            function hideEsotericLoader() {
-                $(".esoteric-loader").fadeOut(1000);
-            }
-
-            function slowWriteText(element, text, index) {
-                if (index < text.length) {
-                    element.append(text[index++]);
-                    setTimeout(function () {
-                        slowWriteText(element, text, index);
-                    }, 50);
-                }
-            }
-
-            let submitting = false;
-
-$("form").on("submit", function (event) {
-    event.preventDefault();
-    
-    if (submitting) {
-        return;
-    }
-    
-    submitting = true;
-            let conversationStarted = false;
-
-            $("form").on("submit", function (event) {
-                event.preventDefault();
-
-                const userInput = $("#user_input").val();
-                $(".conversation").html(""); // Clear the conversation
-                $(".conversation").append(`<p><strong>User:</strong> ${userInput}</p>`);
-
-                showThinkingAnimation();
-                showEsotericLoader();
-
-                const assistantResponse = $(`<p><strong>Lucid:</strong> </p>`);
-                $(".conversation").append(assistantResponse);
-
-                const requestData = {
-                    user_input: userInput
-                };
-
-                if (!conversationStarted) {
-                    requestData.initial_message = "Hello! I'm here to help you interpret your dreams. Tell me about a dream you had.";
-                    conversationStarted = true;
+            $(document).ready(function () {
+                function showThinkingAnimation() {
+                    $(".thinking-animation").fadeIn(1000, function () {
+                        $(".thinking-animation").fadeOut(1000);
+                    });
                 }
 
-                $.post("/interpret", requestData, function (data) {
-                    hideEsotericLoader();
-                    const assistantResponse = $(`<p><strong>Lucid:</strong> </p>`);
-                    $(".conversation").append(assistantResponse);
-                    slowWriteText(assistantResponse, data.content, 0);
-                    $("#user_input").val("");
-                });
-                $.post("/interpret", requestData, function (data) {
-        // ... rest of the code
+                function showEsotericLoader() {
+                    $(".esoteric-loader").fadeIn(1000);
+                }
 
-        $("#user_input").val("");
-        submitting = false;
-    });
-});
+                function hideEsotericLoader() {
+                    $(".esoteric-loader").fadeOut(1000);
+                }
+
+                function slowWriteText(element, text, index) {
+                    if (index < text.length) {
+                        element.append(text[index++]);
+                        setTimeout(function () {
+                            slowWriteText(element, text, index);
+                        }, 50);
+                    }
+                }
+
+                let submitting = false;
+
+                $("form").on("submit", function (event) {
+                    event.preventDefault();
+
+                    if (submitting) {
+                        return;
+                    }
+
+                    submitting = true;
+                    const userInput = $("#user_input").val();
+                    $(".conversation").html(""); // Clear the conversation
+                    $(".conversation").append(`<p><strong>User:</strong> ${userInput}</p>`);
+
+                    showThinkingAnimation();
+                    showEsotericLoader();
+
+                    const requestData = {
+                        user_input: userInput
+                    };
+
+                    $.post("/interpret", requestData, function (data) {
+                        hideEsotericLoader();
+                        const assistantResponse = $(`<p><strong>Lucid:</strong> </p>`);
+                        $(".conversation").append(assistantResponse);
+                        slowWriteText(assistantResponse, data.content, 0);
+                        $("#user_input").val("");
+                        submitting = false;
+                    });
+                });
             });
-            
-        });
-    </script>
-    <script src="/static/js/animations.js"></script>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
-        const firebaseConfig = {
-          apiKey: "AIzaSyD5KhjZmae_tNhGhhyQh9cspbEWdiI56kM",
-          authDomain: "dream-282d8.firebaseapp.com",
-          projectId: "dream-282d8",
-          storageBucket: "dream-282d8.appspot.com",
-          messagingSenderId: "300820599713",
-          appId: "1:300820599713:web:4994a8c0ee5104828971e0"
-        };
-        const app = initializeApp(firebaseConfig);
-      </script>
+        </script>
+        <script src="/static/js/animations.js"></script>
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyD5KhjZmae_tNhGhhyQh9cspbEWdiI56kM",
+                authDomain: "dream-282d8.firebaseapp.com",
+                projectId: "dream-282d8",
+                storageBucket: "dream-282d8.appspot.com",
+                messagingSenderId: "300820599713",
+                appId: "1:300820599713:web:4994a8c0ee5104828971e0"
+            };
+            const app = initializeApp(firebaseConfig);
+        </script>
 </body>
 
 </html>
