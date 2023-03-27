@@ -63,44 +63,33 @@
 
                 let submitting = false;
                 let lastSubmissionTime = 0;
-                $("form").off("submit").on("submit", function (event) {
-                    event.preventDefault();
+                    $("form").off("submit").on("submit", function (event) {
+        event.preventDefault();
 
-                    const currentTime = new Date().getTime();
-                    const timeSinceLastSubmission = currentTime - lastSubmissionTime;
+        // Clear the conversation
+        $(".conversation").empty();
 
-                    // If the time since the last submission is less than 500 milliseconds, ignore this submission.
-                    if (timeSinceLastSubmission < 100) {
-                        return;
-                    }
+        // Process the new submission
+        const userInput = $("#user_input").val();
+        $(".conversation").append(`<p><strong>User:</strong> ${userInput}</p>`);
 
-                    lastSubmissionTime = currentTime;
+        showThinkingAnimation();
+        showEsotericLoader();
 
-                    if (submitting) {
-                        return;
-                    }
+        const requestData = {
+            user_input: userInput
+        };
 
-                    submitting = true;
-                    const userInput = $("#user_input").val();
-
-                    showThinkingAnimation();
-                    showEsotericLoader();
-
-                    const requestData = {
-                        user_input: userInput
-                    };
-
-                    $.post("/interpret", requestData, function (data) {
-                        hideEsotericLoader();
-                        const assistantResponse = $(`<p><strong></strong> </p>`);
-                        $(".conversation").append(assistantResponse);
-                        slowWriteText(assistantResponse, data.content, 0);
-                        conversation.push({ role: "assistant", content: data.content });
-                        $("#user_input").val("");
-                        submitting = false;
-                    });
-                });
-
+        $.post("/interpret", requestData, function (data) {
+            hideEsotericLoader();
+            const assistantResponse = $(`<p><strong>Lucid:</strong> </p>`);
+            $(".conversation").append(assistantResponse);
+            slowWriteText(assistantResponse, data.content, 0);
+            conversation.push({ role: "assistant", content: data.content });
+            $("#user_input").val("");
+            submitting = false;
+        });
+    });
                 function showThinkingAnimation() {
                     $(".thinking-animation").fadeIn(1000, function () {
                         $(".thinking-animation").fadeOut(1000);
