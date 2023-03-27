@@ -62,7 +62,7 @@
         
                 let submitting = false;
         
-                $("form").on("submit", function (event) {
+                $("form").one("submit", function (event) {
                     event.preventDefault();
 
                     if (submitting) {
