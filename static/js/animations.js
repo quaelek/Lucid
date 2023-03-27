@@ -19,7 +19,7 @@ $(document).ready(function () {
         element.append(text[index++]);
         setTimeout(function () {
           slowWriteText(element, text, index);
-        }, 50);
+        }, 20);
       }
     }
   
@@ -27,14 +27,14 @@ $(document).ready(function () {
       event.preventDefault();
   
       const userInput = $("#user_input").val();
-      $(".conversation").append(`<p><strong>User:</strong> ${userInput}</p>`);
+      $(".conversation").append(`<p><strong></strong> ${userInput}</p>`);
   
       showThinkingAnimation();
       showEsotericLoader();
   
       $.post("/interpret", {user_input: userInput}, function (data) {
         hideEsotericLoader();
-        const assistantResponse = $(`<p><strong>Assistant:</strong> </p>`);
+        const assistantResponse = $(`<p><strong>Lucid:</strong> </p>`);
         $(".conversation").append(assistantResponse);
         slowWriteText(assistantResponse, data.content, 0);
         $("#user_input").val("");
