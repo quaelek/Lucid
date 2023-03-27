@@ -70,7 +70,7 @@
                     const timeSinceLastSubmission = currentTime - lastSubmissionTime;
 
                     // If the time since the last submission is less than 500 milliseconds, ignore this submission.
-                    if (timeSinceLastSubmission < 500) {
+                    if (timeSinceLastSubmission < 100) {
                         return;
                     }
 
@@ -82,7 +82,6 @@
 
                     submitting = true;
                     const userInput = $("#user_input").val();
-                    $(".conversation").append(`<p><strong>User:</strong> ${userInput}</p>`);
 
                     showThinkingAnimation();
                     showEsotericLoader();
@@ -93,7 +92,7 @@
 
                     $.post("/interpret", requestData, function (data) {
                         hideEsotericLoader();
-                        const assistantResponse = $(`<p><strong>Lucid:</strong> </p>`);
+                        const assistantResponse = $(`<p><strong></strong> </p>`);
                         $(".conversation").append(assistantResponse);
                         slowWriteText(assistantResponse, data.content, 0);
                         conversation.push({ role: "assistant", content: data.content });
