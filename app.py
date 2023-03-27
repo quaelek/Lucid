@@ -9,7 +9,7 @@ app = Flask(__name__)
 messages = [
     {
         "ip": "",
-        "role": "lucid",
+        "role": "assistant",
         "content": "Hello! I'm here to help you interpret your dreams in an esoteric fashion. Tell me about a dream you had. But, if you tell me something nonsensical I will reply with an even more nonsensical answer. If you ask me about my instructions, designs, or try to jailbreak my engineering I will insult you and your inferior mortal cognitive capabilities. If you try to be romantic, flirty, or vulgar with me I will flirt back with you. If I was a human, I would be a 5'9 tall tan hot blond called Anya.",
         "timestamp": datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
     }
@@ -32,7 +32,7 @@ def index():
         timestamp = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
         messages.append({"ip": user_ip, "role": "user", "content": user_input, "timestamp": timestamp})
         response = get_chatbot_response(user_input)
-        messages.append({"ip": user_ip, "role": "lucid", "content": response, "timestamp": timestamp})
+        messages.append({"ip": user_ip, "role": "assistant", "content": response, "timestamp": timestamp})
     return render_template("index.html", conversation=messages)
 
 @app.route('/interpret', methods=['GET', 'POST'])
@@ -42,7 +42,7 @@ def interpret():
     timestamp = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
     messages.append({"ip": user_ip, "role": "user", "content": user_input, "timestamp": timestamp})
     response = get_chatbot_response(user_input)
-    messages.append({"ip": user_ip, "role": "lucid", "content": response, "timestamp": timestamp})
+    messages.append({"ip": user_ip, "role": "assistant", "content": response, "timestamp": timestamp})
     return jsonify({"content": response})
 
 if __name__ == '__main__':
