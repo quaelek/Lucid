@@ -22,9 +22,7 @@ def index():
 @app.route('/interpret', methods=['GET', 'POST'])
 def interpret():
     user_input = request.form['user_input']
-    messages.append({"role": "user", "content": user_input})
     response = get_chatbot_response(user_input)
-    messages.append({"role": "assistant", "content": response})
     return jsonify({"content": response})
 if __name__ == '__main__':
     app.run(debug=True)
