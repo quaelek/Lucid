@@ -37,21 +37,21 @@
         </div>
         <script>
             $(document).ready(function () {
-             
+
                 function showThinkingAnimation() {
                     $(".thinking-animation").fadeIn(1000, function () {
                         $(".thinking-animation").fadeOut(1000);
                     });
                 }
-        
+
                 function showEsotericLoader() {
                     $(".esoteric-loader").fadeIn(1000);
                 }
-        
+
                 function hideEsotericLoader() {
                     $(".esoteric-loader").fadeOut(1000);
                 }
-        
+
                 function slowWriteText(element, text, index) {
                     if (index < text.length) {
                         element.append(text[index++]);
@@ -60,12 +60,12 @@
                         }, 50);
                     }
                 }
-        
+
                 let submitting = false;
                 let lastSubmissionTime = 0;
                 $("form").off("submit").one("submit", function (event) {
                     event.preventDefault();
-                    
+
                     const currentTime = new Date().getTime();
                     const timeSinceLastSubmission = currentTime - lastSubmissionTime;
 
@@ -101,9 +101,32 @@
                         submitting = false;
                     });
                 });
+
+                function showThinkingAnimation() {
+                    $(".thinking-animation").fadeIn(1000, function () {
+                        $(".thinking-animation").fadeOut(1000);
+                    });
+                }
+
+                function showEsotericLoader() {
+                    $(".esoteric-loader").fadeIn(1000);
+                }
+
+                function hideEsotericLoader() {
+                    $(".esoteric-loader").fadeOut(1000);
+                }
+
+                function slowWriteText(element, text, index) {
+                    if (index < text.length) {
+                        element.append(text[index++]);
+                        setTimeout(function () {
+                            slowWriteText(element, text, index);
+                        }, 20);
+                    }
+                }
+
             });
-        </script>        
-        <script src="/static/js/animations.js"></script>
+        </script>
         <script type="module">
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
             const firebaseConfig = {
