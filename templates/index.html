@@ -63,7 +63,7 @@
 
                 let submitting = false;
                 let lastSubmissionTime = 0;
-                $("form").off("submit").one("submit", function (event) {
+                $("form").off("submit").on("submit", function (event) {
                     event.preventDefault();
 
                     const currentTime = new Date().getTime();
