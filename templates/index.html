@@ -37,6 +37,7 @@
         </div>
         <script>
             $(document).ready(function () {
+             
                 function showThinkingAnimation() {
                     $(".thinking-animation").fadeIn(1000, function () {
                         $(".thinking-animation").fadeOut(1000);
@@ -61,9 +62,19 @@
                 }
         
                 let submitting = false;
-        
+                let lastSubmissionTime = 0;
                 $("form").one("submit", function (event) {
                     event.preventDefault();
+                    
+                    const currentTime = new Date().getTime();
+                    const timeSinceLastSubmission = currentTime - lastSubmissionTime;
+
+                    // If the time since the last submission is less than 500 milliseconds, ignore this submission.
+                    if (timeSinceLastSubmission < 500) {
+                        return;
+                    }
+
+                    lastSubmissionTime = currentTime;
 
                     if (submitting) {
                         return;
