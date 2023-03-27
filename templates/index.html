@@ -64,23 +64,22 @@
         
                 $("form").on("submit", function (event) {
                     event.preventDefault();
-        
+
                     if (submitting) {
                         return;
                     }
-        
+
                     submitting = true;
                     const userInput = $("#user_input").val();
-                    $(".conversation").html(""); // Clear the conversation
                     $(".conversation").append(`<p><strong>User:</strong> ${userInput}</p>`);
-        
+
                     showThinkingAnimation();
                     showEsotericLoader();
-        
+
                     const requestData = {
                         user_input: userInput
                     };
-        
+
                     $.post("/interpret", requestData, function (data) {
                         hideEsotericLoader();
                         const assistantResponse = $(`<p><strong>Lucid:</strong> </p>`);
