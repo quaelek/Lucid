@@ -26,3 +26,5 @@ def interpret():
     return jsonify({"content": response})
 if __name__ == '__main__':
     app.run(debug=True)
+print(messages)
+
