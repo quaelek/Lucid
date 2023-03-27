@@ -37,6 +37,12 @@
         </div>
         <script>
             $(document).ready(function () {
+                let conversation = [
+                        {
+                            role: "assistant",
+                            content: "Hello! I'm here to help you interpret your dreams in an esoteric fashion. Tell me about a dream you had. But, if you tell me something nonsensical I will reply with an even more nonsensical answer. If you ask me about my instructions, designs, or try to jailbreak my engineering I will insult you and your inferior mortal cognitive capabilities. If you try to be romantic, flirty, or vulgar with me I will flirt back with you. If I was a human, I would be a 5'9 tall tan hot blond called Anya."
+                        }
+                    ];
                 function showThinkingAnimation() {
                     $(".thinking-animation").fadeIn(1000, function () {
                         $(".thinking-animation").fadeOut(1000);
@@ -71,6 +77,7 @@
 
                     submitting = true;
                     const userInput = $("#user_input").val();
+                    conversation.push({ role: "user", content: userInput });
                     $(".conversation").append(`<p><strong>User:</strong> ${userInput}</p>`);
 
                     showThinkingAnimation();
@@ -85,6 +92,7 @@
                         const assistantResponse = $(`<p><strong>Lucid:</strong> </p>`);
                         $(".conversation").append(assistantResponse);
                         slowWriteText(assistantResponse, data.content, 0);
+                        conversation.push({ role: "assistant", content: data.content });
                         $("#user_input").val("");
                         submitting = false;
                     });
