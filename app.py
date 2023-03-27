@@ -18,11 +18,6 @@ def get_chatbot_response(user_input):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    if request.method == 'POST':
-        user_input = request.form['user_input']
-        messages.append({"role": "user", "content": user_input})
-        response = get_chatbot_response(user_input)
-        messages.append({"role": "assistant", "content": response})
     return render_template("index.html", conversation=messages)
 @app.route('/interpret', methods=['GET', 'POST'])
 def interpret():
