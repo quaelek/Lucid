@@ -30,7 +30,7 @@ def index():
         user_input = request.form['user_input']
         messages.append({"role": "user", "content": user_input})
         response = get_chatbot_response(user_input)
-        messages.append({"role": "lucid", "content": response})
+        messages.append({"role": "assistant", "content": response})
     return render_template("index.html", conversation=messages)
 
 
@@ -39,7 +39,7 @@ def interpret():
     user_input = request.form['user_input']
     session["messages"].append({"role": "user", "content": user_input})
     response = get_chatbot_response(user_input)
-    session["messages"].append({"role": "lucid", "content": response})
+    session["messages"].append({"role": "assistant", "content": response})
 
     # Get user IP and timestamp
     user_ip = request.remote_addr
