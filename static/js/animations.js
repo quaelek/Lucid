@@ -26,15 +26,14 @@ $(document).ready(function () {
     $("form").on("submit", function (event) {
       event.preventDefault();
   
-      const userInput = $("#user_input").val();
-      $(".conversation").append(`<p><strong></strong> ${userInput}</p>`);
+ 
   
       showThinkingAnimation();
       showEsotericLoader();
   
       $.post("/interpret", {user_input: userInput}, function (data) {
         hideEsotericLoader();
-        const assistantResponse = $(`<p><strong>Lucid:</strong> </p>`);
+        const assistantResponse = $(`<p><strong></strong> </p>`);
         $(".conversation").append(assistantResponse);
         slowWriteText(assistantResponse, data.content, 0);
         $("#user_input").val("");
