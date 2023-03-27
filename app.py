@@ -8,6 +8,8 @@ messages_matrix = []
 
 openai.api_key = openai.api_key = os.environ["OPENAI_API_KEY"]
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'mysecretkey')
+app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 
 
