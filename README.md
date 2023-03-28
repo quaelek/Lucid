@@ -28,7 +28,7 @@ pip install -r requirements.txt
 ```bash
 git clone https://github.com/quaelek/Lucid.git
 
-3. Set up your OpenAI API key as an environment variable::
+3. Set up your OpenAI API key as an environment variable:
 
 export OPENAI_API_KEY=your_openai_api_key
 
